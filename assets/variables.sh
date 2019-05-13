@@ -2,7 +2,7 @@
 
 ScriptAuthor="MidNightSonne"
 ScriptName="HSCAP"
-ScriptVersion="1.1-1"
+ScriptVersion="2.0-1"
 
 BashVersion="${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}"
 MinBashVersion="4.4"
@@ -24,6 +24,14 @@ CLPE='\e[1;35m' # L Purple Color
 CCN='\e[0;36m' # Cyan Color
 CLCN='\e[1;36m' # L Cyan Color
 CLGY='\e[0;37m' # L Gray Color
+
+TNL='\e[0;0m' # 0 - Normal Text
+TBD='\e[1;1m' # 1 - Bold or Light Text
+TDM='\e[2;1m' # 2 - Dim Text
+TUD='\e[4;1m' # 4 - Underlined Text
+TBG='\e[5;1m' # 5 - Blinking Text
+TRD='\e[7;1m' # 7 - Reversed Text
+THN='\e[8;1m' # 8 - Hidden Text
 
 CAMRK="\e[0;33m\xe2\x9c\xb1" # Attention Check Mark
 CGMRK="\e[0;32m\xe2\x9c\x94" # Good Check Mark

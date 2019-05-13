@@ -35,16 +35,6 @@ function check_caps {
 	fi
 }
 
-#Check - Monitor Mode Is Enabled On The Selected Interface
-function check_monitor {
-  MonMode=$(iwconfig "$interface" 2> /dev/null | grep Mode: | awk '{print $4}' | cut -d ':' -f 2)
-
-  if [[ $MonMode != "Monitor" ]]; then
-    clear && echo -e "\n This Interface Doesn't Have Monitor Mode Enabled "
-  	sleep 2 && end_script
-  fi
-}
-
 #Function - End Script Cleaning Temporary Files and Stopping Services
 function end_script {
 	clear
@@ -52,11 +42,16 @@ function end_script {
 	echo -e "$CWE"
 	echo -e " Cleaning Temporary Files ... \n"
 
-	sudo rm -rf "${TmpDIR}bl.txt" > /dev/null 2>&1
+	cd $TmpDIR
+
+	sudo rm -rf *.csv > /dev/null 2>&1
+  sudo rm -rf *.txt > /dev/null 2>&1
+  sudo rm -rf *.cap > /dev/null 2>&1
+  sudo rm -rf *.netxml > /dev/null 2>&1
 
 	echo -e " Stopping Services ... \n"
 
-  sudo airmon-ng stop "$interface" > /dev/null 2>&1
+  #sudo airmon-ng stop "$interface" > /dev/null 2>&1
 
 	echo -e " Exiting Script ... \n"
 

