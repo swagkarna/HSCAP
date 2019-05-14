@@ -51,7 +51,7 @@ function end_script {
 
 	echo -e " Stopping Services ... \n"
 
-  #sudo airmon-ng stop "$interface" > /dev/null 2>&1
+  sudo airmon-ng stop "$Interface" > /dev/null 2>&1
 
 	echo -e " Exiting Script ... \n"
 

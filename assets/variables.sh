@@ -2,7 +2,7 @@
 
 ScriptAuthor="MidNightSonne"
 ScriptName="HSCAP"
-ScriptVersion="2.0-1"
+ScriptVersion="2.1-1"
 
 BashVersion="${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}"
 MinBashVersion="4.4"
@@ -36,5 +36,8 @@ THN='\e[8;1m' # 8 - Hidden Text
 CAMRK="\e[0;33m\xe2\x9c\xb1" # Attention Check Mark
 CGMRK="\e[0;32m\xe2\x9c\x94" # Good Check Mark
 CBMRK="\e[0;31m\xe2\x9c\x98" # Bad Check Mark
+
+UserName=$(awk -F'[/:]' '{if ($3 >= 1000 && $3 != 65534) print $1}' /etc/passwd)
+DefaultHandShakeSave="/home/$UserName/Documents/HandShake/"
 
 TmpDIR="/tmp/"

