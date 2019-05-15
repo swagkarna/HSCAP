@@ -64,7 +64,6 @@ function handshake_capture {
 	sudo cp "${TmpDIR}HandShake-01.cap" "${DefaultHandShakeSave}HandShake-${bssid}.cap"
 }
 
-#Manage target exploration and parse the output files
 function explore_for_networks {
 
 	clear
@@ -140,7 +139,6 @@ function explore_for_networks {
 	select_target
 }
 
-#Create a menu to select target from the parsed data
 function select_target {
 
 	clear
@@ -219,7 +217,6 @@ function select_target {
 	bssid=${macs[${selected_target_network}]}
 }
 
-#Function - Find The Physical Interface
 function phy_iface_finder {
 
 	phy_iface=$(basename "$(readlink "/sys/class/net/$1/phy80211")" 2> /dev/null)
@@ -227,7 +224,6 @@ function phy_iface_finder {
 	echo -e "$phy_iface"
 }
 
-#Check - Physical Interface Has 5Ghz Support
 function phy_iface_band {
 
 	if iw phy "$1" info 2> /dev/null | grep "5200 MHz" > /dev/null; then
@@ -237,7 +233,6 @@ function phy_iface_band {
 	return 1
 }
 
-#Function - Create An Interface Selection Menu
 function interface_selection {
 
 	clear
