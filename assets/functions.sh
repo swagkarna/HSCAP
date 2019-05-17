@@ -16,6 +16,29 @@ function check_bash {
   fi
 }
 
+#Check - User Has All Packages Needed To Run The Script
+function check_dpkg {
+
+	# - These Are The Essential Packages Needed To Run Script
+	Essential_PKGS=(
+		"mdk3"
+		"mdk4"
+		"aircrack-ng"
+		"xterm"
+		"x11-xserver-utils"
+	)
+
+	if [ $UpdateScript = "yes" ]; then
+		echo -en "\n ${CAMRK} Please Wait A Second ... "
+		for Essential_PKGS in "${Essential_PKGS[@]}"; do
+    	if [ $(dpkg-query -W -f='${Status}' $Essential_PKGS 2> /dev/null | grep -c "ok installed") -eq 0 ]; then
+    		sudo apt-get install $Essential_PKGS 2> /dev/null > /dev/null
+    	fi
+		done
+		echo -e "\r ${CGMRK} You HAVE All Required Packages ! "
+	fi
+}
+
 #Check - User Has Root Permissions
 function check_root {
 	if [ $(whoami) = "root" ]; then

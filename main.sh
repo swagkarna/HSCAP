@@ -27,6 +27,7 @@ echo "                                                "
 
 check_root
 check_bash
+check_dpkg
 check_caps
 
 echo -en "$CLYW" "\n\n Press [ENTER] to continue ... "

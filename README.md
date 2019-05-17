@@ -4,7 +4,7 @@ This script was beautifully made by MidNightSonne (me), it is supposed to send d
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+These packages are needed to run HSCAP, if you don't have them you can install each one yourself or let HSCAP do it for you.
 
 ```
 mdk3          - sudo apt-get install mdk3
@@ -16,24 +16,21 @@ xset          - sudo apt-get install x11-xserver-utils
 
 ### Installing
 
-You can launch the script with just these commands:
+You can install HSCAP with just these commands:
 
 ```
-cd /folder/where/HSCAP/is/located/at
+cd /folder/where/HSCAP/is/located/at/
 
-sudo bash main.sh
+sudo bash install.sh
 ```
-
-The script should launch normally after these commands.
-
-Also, there is no oficial way to install HSCAP, for now...
+Also, you can run it with this command "hscap" directly on console after you have installed it.
 
 ### You Can Edit The Script Yourself
 
 There's four arguments that you can edit yourself for better use of the HSCAP script...
 
 ```
-# - Amount Of Time Given To Mdk3 For It To Kick Clients From The Network - Default value "12"
+# - Amount Of Time Given To The HandShake Capture For It To Kick Clients From The Network - Default value "12"
 TimeAttack=12
 
 # - Amount Of Time Given To AiroDump For It To Capture The HandShake - Default value "24"
@@ -44,6 +41,9 @@ XTermGeometry=100x25
 
 # - Which Attack Mode To Use - "mdk3" "mdk4" "aireplay" - Default value "mdk3"
 AttackMode=mdk3
+
+# - Update Script To The Latest GitHub Version And Download Needed Packages - Default value "yes"
+UpdateScript=yes
 ```
 Each one has a very specific task on HSCAP, so don't leave them with nothing on.
 
