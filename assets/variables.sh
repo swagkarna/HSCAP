@@ -2,7 +2,7 @@
 
 ScriptAuthor="MidNightSonne"
 ScriptName="HSCAP"
-ScriptVersion="2.2-2"
+ScriptVersion="2.3-2"
 ConfigVersion="1.0-3"
 
 BashVersion="${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}"
