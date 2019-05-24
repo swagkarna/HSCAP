@@ -42,7 +42,10 @@ XTermGeometry=100x25
 # - Which Attack Mode To Use - "mdk3" "mdk4" "aireplay" - Default value "mdk3"
 AttackMode=mdk3
 
-# - Update Script To The Latest GitHub Version And Download Needed Packages - Default value "yes"
+# - Update The Latest Packages - Default value "yes"
+UpdatePackages=yes
+
+# - Update Script Or ".config" To The Latest Version On GitHub - Default value "yes"
 UpdateScript=yes
 ```
 Each one has a very specific task on HSCAP, so don't leave them with nothing on.

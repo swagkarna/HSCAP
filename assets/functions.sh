@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#Compare - Version Is **Greater** Than "Minimum Required Version"
+function compare_versions {
+	awk -v n1="${1}" -v n2="${2}" 'BEGIN{if (n1>n2) exit 0; exit 1}'
+}
+
 #Compare - Bash Version Is **Greater Or Equal** Than "Minimum Required Bash Version"
 function comp_bash_version {
 	awk -v n1="$BashVersion" -v n2="$MinBashVersion" 'BEGIN{if (n1>=n2) exit 0; exit 1}'
@@ -16,6 +21,25 @@ function check_bash {
   fi
 }
 
+#Check - See If HSCAP Or ".config" Needs To Be Updated
+function check_updt {
+	if [ $UpdateScript = "yes" ]; then
+		cd /opt
+
+		if compare_versions "${hscap_last_version}" "${ScriptVersion}"; then
+	  	sudo rm -rf /opt/HSCAP
+	  	sudo git clone "https://github.com/midnightsonne/HSCAP.git"
+	  	sudo chown -R anderson /opt/HSCAP
+		fi
+
+		if compare_versions "${config_last_version}" "${ConfigVersion}"; then
+	  	sudo rm -rf /opt/HSCAP/.config
+	  	wget $urlconfig /opt/HSCAP/.config
+	  	sudo chown -R anderson /opt/HSCAP/.config
+		fi
+	fi
+}
+
 #Check - User Has All Packages Needed To Run The Script
 function check_dpkg {
 
@@ -28,11 +52,11 @@ function check_dpkg {
 		"x11-xserver-utils"
 	)
 
-	if [ $UpdateScript = "yes" ]; then
+	if [ $UpdatePackages = "yes" ]; then
 		echo -en "\n ${CAMRK} Please Wait A Second ... "
 		for Essential_PKGS in "${Essential_PKGS[@]}"; do
     	if [ $(dpkg-query -W -f='${Status}' $Essential_PKGS 2> /dev/null | grep -c "ok installed") -eq 0 ]; then
-    		sudo apt-get install $Essential_PKGS 2> /dev/null > /dev/null
+    		sudo apt-get -y install $Essential_PKGS 2> /dev/null > /dev/null
     	fi
 		done
 		echo -e "\r ${CGMRK} You HAVE All Required Packages ! "

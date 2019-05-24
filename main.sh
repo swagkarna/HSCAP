@@ -27,8 +27,9 @@ echo "                                                "
 
 check_root
 check_bash
-check_dpkg
 check_caps
+check_updt
+check_dpkg
 
 echo -en "$CLYW" "\n\n Press [ENTER] to continue ... "
 read -r continue
