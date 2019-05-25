@@ -8,6 +8,7 @@ source ".config"
 source "assets/variables.sh"
 source "assets/functions.sh"
 source "assets/essentials.sh"
+source "assets/arguments.sh"
 
 clear && echo -en "\\033]0;$ScriptName | $ScriptVersion\\a"
 

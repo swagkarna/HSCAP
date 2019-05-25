@@ -10,6 +10,17 @@ function comp_bash_version {
 	awk -v n1="$BashVersion" -v n2="$MinBashVersion" 'BEGIN{if (n1>=n2) exit 0; exit 1}'
 }
 
+#Check - User Has Root Permissions
+function check_root {
+	if [ $(whoami) = "root" ]; then
+		echo -e "\n ${CGMRK} You HAVE Root Permissions ! "
+	else
+		echo -e "\n ${CBMRK} You DON'T Have Root Permissions "
+		echo -en "\n ${CAMRK} Do: 'sudo bash $ScriptName' "
+		sleep 2 && clear && exit
+	fi
+}
+
 #Check - User Has The Required "Minimum Bash Version"
 function check_bash {
   if comp_bash_version; then
@@ -60,17 +71,6 @@ function check_dpkg {
     	fi
 		done
 		echo -e "\r ${CGMRK} You HAVE All Required Packages ! "
-	fi
-}
-
-#Check - User Has Root Permissions
-function check_root {
-	if [ $(whoami) = "root" ]; then
-		echo -e "\n ${CGMRK} You HAVE Root Permissions ! "
-	else
-		echo -e "\n ${CBMRK} You DON'T Have Root Permissions "
-		echo -en "\n ${CAMRK} Do: 'sudo bash $ScriptName' "
-		sleep 2 && clear && exit
 	fi
 }
 
