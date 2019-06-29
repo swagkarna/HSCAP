@@ -2,8 +2,8 @@
 
 ScriptAuthor="MidNightSonne"
 ScriptName="HSCAP"
-ScriptVersion="2.3-4"
-ConfigVersion="1.0-3"
+ScriptVersion="2.4-5"
+ConfigVersion="1.0-4"
 
 BashVersion="${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}"
 MinBashVersion="4.4"
@@ -39,14 +39,13 @@ CGMRK="\e[0;32m\xe2\x9c\x94" # Good Check Mark
 CBMRK="\e[0;31m\xe2\x9c\x98" # Bad Check Mark
 
 UserName=$(awk -F'[/:]' '{if ($3 >= 1000 && $3 != 65534) print $1}' /etc/passwd)
-DefaultHandShakeSave="/home/$UserName/Documents/HandShake/"
+DefaultHandShakeSave="/home/$UserName/Documents/"
 
 urlgithub="https://raw.githubusercontent.com/midnightsonne/HSCAP/master/"
 urlvariables="${urlgithub}assets/variables.sh"
 urlconfig="${urlgithub}.config"
-urlscript="${urlgithub}main.sh"
 
 hscap_last_version=$(timeout -s SIGTERM 15 curl -L "${urlvariables}" 2> /dev/null | grep "ScriptVersion=" | head -n 1 | cut -d "\"" -f 2)
-config_last_version=$(timeout -s SIGTERM 15 curl -L "${urlconfig}" 2> /dev/null | grep "ConfigVersion=" | head -n 1 | cut -d "\"" -f 2)
+config_last_version=$(timeout -s SIGTERM 15 curl -L "${urlvariables}" 2> /dev/null | grep "ConfigVersion=" | head -n 1 | cut -d "\"" -f 2)
 
 TmpDIR="/tmp/"

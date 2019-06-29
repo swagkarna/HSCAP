@@ -5,7 +5,7 @@ To get the Wi-Fi password of a router it is necessary to decrypt the handshake f
 
 ### Prerequisites
 
-These packages are needed to run HSCAP, if you don't have them you can install each one yourself or let HSCAP do it for you.
+These packages are needed to run HSCAP, if you don't have them you can install each one yourself or **let HSCAP install these packages for you**.
 
 ```
 mdk3          - sudo apt-get install mdk3
@@ -22,13 +22,13 @@ You can install HSCAP with just these commands:
 ```
 cd /folder/where/HSCAP/is/located/at/
 
-sudo bash install.sh
+sudo bash install.sh -i
 ```
-Also, you can run it with this command "hscap" directly on console after you have installed it.
+Also, you can **run HSCAP with "hscap" directly on console after you have installed it**.
 
 ### You Can Edit The Script Yourself
 
-There's four arguments that you can edit yourself for better use of the HSCAP script...
+There's six arguments that you can edit yourself for better use of the HSCAP script...
 
 ```
 # - Amount Of Time Given To The HandShake Capture For It To Kick Clients From The Network - Default value "12"
@@ -43,17 +43,23 @@ XTermGeometry=100x25
 # - Which Attack Mode To Use - "mdk3" "mdk4" "aireplay" - Default value "mdk3"
 AttackMode=mdk3
 
-# - Update The Latest Packages - Default value "yes"
-UpdatePackages=yes
+# - Update The Latest Packages - Default value "Yes"
+UpdatePackages=Yes
 
-# - Update Script Or ".config" To The Latest Version On GitHub - Default value "yes"
-UpdateScript=yes
+# - Update HSCAP To The Latest Version On GitHub - Default value "Yes"
+UpdateScript=Yes
 ```
 Each one has a very specific task on HSCAP, so don't leave them with nothing on.
 
 ## Authors
 
 * **Anderson L Polo A** - *Initial work* - [MidNightSonne](https://github.com/midnightsonne)
+
+## Contact
+
+* Email: midnightsonnecontact@gmail.com
+* WhatsApp: (55) +51 99901-5280
+* Instagram: @andersonpoloficial
 
 ## License
 

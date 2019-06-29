@@ -7,8 +7,8 @@ source ".config"
 
 source "assets/variables.sh"
 source "assets/functions.sh"
-source "assets/essentials.sh"
 source "assets/arguments.sh"
+source "assets/essentials.sh"
 
 clear && echo -en "\\033]0;$ScriptName | $ScriptVersion\\a"
 
@@ -30,7 +30,6 @@ check_root
 check_bash
 check_caps
 check_updt
-check_dpkg
 
 echo -en "$CLYW" "\n\n Press [ENTER] to continue ... "
 read -r continue
